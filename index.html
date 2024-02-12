@@ -1,47 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <link type="text/css" rel="stylesheet" href="style.css"/>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Salary after taxes</title>
-</head>
-<body>
-  <section>
-  <h1>Salary after taxes</h1>
-  <label class="indicadores"> <h3>Hours worked</h3>
-  <input type="number" placeholder="Ej: 140" id="horasTrabajadas">
-  </label>
-  <label class="indicadores"> <h3>Hourly wage</h3>
-  <input type="number" placeholder="Ej: 130" id="pagoPorHora">
-  </label>
-  <button type="button" onclick="calcular()">Calculate net salary</button>
-  <div>
-    
-    <label for="primary">Primary
-      <input type="radio" name="tipoDeTax" id="primary" value="0.64" checked>
-    </label>
-    
-    <label for="secondary">Secondary
-      <input type="radio" name="tipoDeTax" id="Secondary" value="0.45">
-    </label>
-  </div>
-</section>
-<div class="resultado">
-  <h1 class="tituloResultado" id="resultado"></h1>
 
-</div>
-</body>
-</html>
-    <script src="/script.js">
-    </script>
+<head>
+  <link type="text/css" rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <!DOCTYPE html>
+  <html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary after taxes</title>
+  </head>
+
+  <body>
+    <main>
+      <section>
+        <h1>Salary after taxes</h1>
+        <label class="indicadores">
+          <h3>Hours worked</h3>
+          <input type="number" placeholder="Ej: 140" id="horasTrabajadas">
+        </label>
+        <label class="indicadores">
+          <h3>Hourly wage</h3>
+          <input type="number" placeholder="Ej: 130" id="pagoPorHora">
+        </label>
+        <button type="button" onclick="calcular()">Calculate net salary</button>
+        <div>
+
+          <label class="checkBox" for="primary">Primary
+            <input type="radio" name="tipoDeTax" id="primary" value="0.64" checked>
+          </label>
+
+          <label class="checkBox" for="secondary">Secondary
+            <input type="radio" name="tipoDeTax" id="Secondary" value="0.45">
+          </label>
+        </div>
+        <div class="resultado">
+          <h1 class="tituloResultado" id="resultado"></h1>
+        </div>
+      </section>
+
+    </main>
   </body>
+
+  </html>
+  <script src="/script.js">
+  </script>
+</body>
+
 </html>
