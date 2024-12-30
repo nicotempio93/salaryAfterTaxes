@@ -1,15 +1,28 @@
-
-
-function calcular() {
-    const horasTranajadas = parseFloat(document.getElementById("horasTrabajadas").value);
-    const pagoPorHora = parseFloat(document.getElementById("pagoPorHora").value);
+// script.js - Salary Calculator
+document.addEventListener('DOMContentLoaded', () => {
+    const salaryForm = document.getElementById('salary-form');
     
-    console.log("Horas trabajadas:", horasTrabajadas);
-    console.log("Pago por hora:", pagoPorHora);
-    const radioSeleccionado = document.querySelector('input[name="tipoDeTax"]:checked').value;
-    const salarioDespuesDeImpuesto = (horasTranajadas * pagoPorHora) * radioSeleccionado;
+    salaryForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        calculateSalary();
+    });
+});
+
+function calculateSalary() {
+    const hoursWorked = parseFloat(document.getElementById('hoursWorked').value);
+    const hourlyWage = parseFloat(document.getElementById('hourlyWage').value);
+    const taxRate = parseFloat(document.querySelector('input[name="taxType"]:checked').value);
     
-    console.log("Salario después de impuestos:", salarioDespuesDeImpuesto);
-    document.getElementById("resultado").innerHTML = "You salary after taxes will be " + (salarioDespuesDeImpuesto.toFixed(2)) + "kr";
+    if (isNaN(hoursWorked) || isNaN(hourlyWage)) {
+        displayResult('Please enter valid numbers');
+        return;
+    }
+    
+    const salaryAfterTax = (hoursWorked * hourlyWage) * taxRate;
+    displayResult(`Your salary after taxes will be ${salaryAfterTax.toFixed(2)} kr`);
+}
+
+function displayResult(message) {
+    document.getElementById('result-display').textContent = message;
 }
 

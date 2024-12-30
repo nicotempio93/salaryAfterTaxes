@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Currency Converter</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main>
+      <header class="header">
+        <div class="logo">
+          <img src="/s-Photoroom.png" alt="logo" class="flag-icon" />
+        </div>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="index.html">Salary Calculator</a></li>
+            <li>
+              <a href="currency.html" class="active">Currency Converter</a>
+            </li>
+            <!-- Botón para cambiar idioma -->
+          </ul>
+        </nav>
+      </header>
+
+      <section class="calculator">
+        <h1 id="title">Currency Converter</h1>
+        <form id="currency-form" class="calculator-form">
+          <div class="input-group">
+            <label for="dkk">
+              <h3 id="dkk-label">DKK<span class="flag-icon">🇩🇰</span></h3>
+              <input
+                type="text"
+                id="dkk"
+                placeholder="Enter amount in DKK"
+                min="0"
+              />
+            </label>
+            <!-- Emoji de la bandera de Dinamarca -->
+          </div>
+
+          <div class="input-group">
+            <label for="usd">
+              <h3 id="usd-label">USD<span class="flag-icon">🇺🇸</span></h3>
+              <input
+                type="text"
+                id="usd"
+                placeholder="Enter amount in USD"
+                min="0"
+              />
+            </label>
+            <!-- Emoji de la bandera de Estados Unidos -->
+          </div>
+
+          <div class="input-group">
+            <label for="ars">
+              <h3 id="ars-label">ARS <span class="flag-icon">🇦🇷</span></h3>
+              <input
+                type="text"
+                id="ars"
+                placeholder="Enter amount in ARS"
+                min="0"
+              />
+            </label>
+            <!-- Emoji de la bandera de Argentina -->
+          </div>
+
+          <button type="submit" class="calculate-btn">Convert Currency</button>
+
+          <div class="result">
+            <h2 id="result-display"></h2>
+          </div>
+        </form>
+      </section>
+    </main>
+    <script src="currency.js"></script>
+  </body>
+</html>
