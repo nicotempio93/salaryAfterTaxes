@@ -135,18 +135,31 @@ h3 {
 }
 
 /* Radio buttons */
+/* Modificar la sección de Radio buttons en tu CSS */
 .tax-options, .currency-options {
   display: flex;
   gap: 20px;
   margin: 16px 0;
+  align-items: center; /* Asegura alineación vertical */
+  flex-wrap: wrap; /* Permite que los elementos se envuelvan si es necesario */
 }
 
 .radio-label {
   color: var(--text-color);
-  display: flex;
+  display: inline-flex; /* Cambiado a inline-flex */
   align-items: center;
   gap: 8px;
   cursor: pointer;
+  position: relative; /* Añadido */
+  padding: 4px 0; /* Añadido padding vertical */
+  min-width: 90px; /* Asegura un ancho mínimo */
+}
+
+/* Estilo específico para los inputs de tipo radio */
+.radio-label input[type="radio"] {
+  width: auto; /* Sobrescribe el width: 100% anterior */
+  margin: 0; /* Reset de márgenes */
+  position: relative; /* Asegura posicionamiento correcto */
 }
 
 /* Result display */
