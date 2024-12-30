@@ -123,7 +123,7 @@ async function convertCurrency() {
     };
 
     // Mostrar resultados sin repetir la moneda de entrada
-    let resultMessage = `<div><strong>${amount} ${sourceCurrency} equals:</strong></div>`;
+    let resultMessage = `<div><strong>${amount} ${sourceCurrency} =</strong></div>`;
     
     // Mostrar solo las conversiones que no corresponden a la moneda de entrada
     if (sourceCurrency !== 'DKK') {
