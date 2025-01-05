@@ -78,7 +78,30 @@
           </div>
         </form>
       </section>
+
+      <!-- Formulario de Feedback -->
+      <section class="feedback-section">
+        <h2>¿Cómo podemos mejorar?</h2>
+        <form id="feedback-form" class="feedback-form">
+          <div class="input-group">
+            <label for="feedback">Tu opinión es importante:</label>
+            <textarea
+              id="feedback"
+              name="feedback"
+              rows="4"
+              maxlength="500"
+              placeholder="Comparte tus sugerencias..."
+            ></textarea>
+          </div>
+          <button type="submit" class="feedback-btn">Enviar Feedback</button>
+        </form>
+      </section>
     </main>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="script.js"></script>
+    <script src="config.js" type="module"></script>
+    <script src="feedback.js" type="module"></script>
     <script src="currency.js"></script>
   </body>
 </html>

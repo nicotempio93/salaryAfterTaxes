@@ -73,10 +73,7 @@ body {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  margin: 80px auto 0;
   border-radius: 10px;
   background: var(--secondary-bg);
   padding: 20px;
@@ -92,7 +89,8 @@ body {
 /* Input styles */
 .input-group {
   width: 100%;
-  margin-bottom: 16px;
+  max-width: 300px;
+  text-align: center;
 }
 
 input, select {
@@ -118,20 +116,35 @@ h3 {
 }
 
 /* Button styles */
-.calculate-btn {
-  border: 0;
-  border-radius: 40px;
-  background: var(--button-primary);
-  color: var(--text-color);
-  width: 200px;
-  padding: 8px 5px;
-  margin: 16px 0;
+.calculate-btn,
+.convert-btn,
+.feedback-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 300px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: block;
+  margin: 1rem auto;
 }
 
-.calculate-btn:hover {
-  background: var(--button-hover);
+.calculate-btn:hover,
+.convert-btn:hover,
+.feedback-btn:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.calculate-btn:active,
+.convert-btn:active,
+.feedback-btn:active {
+  transform: translateY(0);
 }
 
 /* Radio buttons */
@@ -187,4 +200,115 @@ h3 {
   font-size: 24px; /* Asegura que el emoji sea lo suficientemente grande */
   margin-left: 10px; /* Espaciado entre el campo y el emoji */
   vertical-align: middle; /* Alinea el emoji al medio */
+}
+
+.feedback-section {
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: var(--secondary-bg);
+  border-radius: 10px;
+  width: 90%;
+  max-width: 550px;
+  text-align: center;
+}
+
+.feedback-section h2 {
+  color: var(--text-color);
+  margin-bottom: 1rem;
+}
+
+.feedback-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.feedback-form .input-group {
+  width: 100%;
+  max-width: 500px;
+}
+
+.feedback-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+  text-align: center;
+}
+
+.feedback-form textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--primary-bg);
+  color: var(--text-color);
+  font-family: inherit;
+  resize: vertical;
+  min-height: 100px;
+  max-height: 300px;
+}
+
+.feedback-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  transition: background-color 0.3s ease;
+}
+
+.feedback-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Media queries para dispositivos móviles */
+@media screen and (max-width: 768px) {
+  .feedback-section {
+    padding: 1rem;
+    margin: 1rem auto;
+    width: 95%;
+  }
+
+  .feedback-form textarea {
+    font-size: 16px;
+  }
+
+  .feedback-btn {
+    width: 90%;
+    padding: 1rem;
+  }
+}
+
+.currency-select {
+  background: none;
+  border: none;
+  font-size: 1.17em;
+  font-weight: bold;
+  color: var(--text-color);
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  padding: 5px 20px 5px 5px;
+  outline: none;
+  appearance: none;
+  text-align: center;
+  position: relative;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 2px center;
+  background-size: 16px;
+}
+
+.currency-select option {
+  background-color: var(--primary-bg);
+  color: var(--text-color);
+  font-size: 1rem;
+  padding: 10px;
+}
+
+/* Efecto hover */
+.currency-select:hover {
+  opacity: 0.8;
 }
