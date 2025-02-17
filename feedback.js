@@ -51,4 +51,18 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Hubo un error al enviar tu feedback. Por favor, intenta nuevamente.');
         }
     });
+
+    const feedbackToggle = document.querySelector('.feedback-toggle');
+    const feedbackSection = document.querySelector('.feedback-section');
+
+    feedbackToggle.addEventListener('click', function() {
+        feedbackSection.classList.toggle('active');
+    });
+
+    // Cerrar el feedback cuando se hace clic fuera
+    document.addEventListener('click', function(event) {
+        if (!feedbackSection.contains(event.target)) {
+            feedbackSection.classList.remove('active');
+        }
+    });
 }); 
