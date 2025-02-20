@@ -89,40 +89,43 @@
           </div>
         </form>
       </section>
+      <div class="button-container">
+        <!-- Botón de Donación -->
+        <a
+          href="https://www.paypal.com/donate/?business=9ZHB8ZZ67YX2G&no_recurring=1&item_name=Tirame+unos+pesos+si+esta+pagina+te+sirvio+alguna+vez%21&currency_code=DKK"
+          target="_blank"
+          class="donate-button"
+        >
+          <i class="fab fa-paypal"></i>
+          Donar
+        </a>
 
-      <!-- Botón de Donación -->
-      <a
-        href="https://www.paypal.com/donate/?business=9ZHB8ZZ67YX2G&no_recurring=1&item_name=Tirame+unos+pesos+si+esta+pagina+te+sirvio+alguna+vez%21&currency_code=DKK"
-        target="_blank"
-        class="donate-button"
-      >
-        <i class="fab fa-paypal"></i>
-        Donar
-      </a>
-
-      <!-- Formulario de Feedback -->
-      <section class="feedback-section">
-        <button class="feedback-toggle">
-          <i class="fas fa-comments"></i>
-          Feedback
-        </button>
-        <div class="feedback-content">
-          <h2>¿Cómo podemos mejorar?</h2>
-          <form id="feedback-form" class="feedback-form">
-            <div class="input-group">
-              <label for="feedback">Tu opinión es importante:</label>
-              <textarea
-                id="feedback"
-                name="feedback"
-                rows="4"
-                maxlength="500"
-                placeholder="Comparte tus sugerencias..."
-              ></textarea>
-            </div>
-            <button type="submit" class="feedback-btn">Enviar Feedback</button>
-          </form>
-        </div>
-      </section>
+        <!-- Formulario de Feedback -->
+        <section class="feedback-section">
+          <button class="feedback-toggle">
+            <i class="fas fa-comments"></i>
+            Feedback
+          </button>
+          <div class="feedback-content">
+            <h2>¿Cómo podemos mejorar?</h2>
+            <form id="feedback-form" class="feedback-form">
+              <div class="input-group">
+                <label for="feedback">Tu opinión es importante:</label>
+                <textarea
+                  id="feedback"
+                  name="feedback"
+                  rows="4"
+                  maxlength="500"
+                  placeholder="Comparte tus sugerencias..."
+                ></textarea>
+              </div>
+              <button type="submit" class="feedback-btn">
+                Enviar Feedback
+              </button>
+            </form>
+          </div>
+        </section>
+      </div>
     </main>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>

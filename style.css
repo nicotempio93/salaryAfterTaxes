@@ -16,9 +16,15 @@
   font-family: 'Montserrat', sans-serif;
 }
 
+html, body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   background-color: var(--primary-bg);
-  min-height: 100vh;
+  height: 100%;
 }
 
 /* Header styles */
@@ -31,6 +37,7 @@ body {
   background-color: var(--header-bg);
   color: var(--text-color);
   padding: 5px 10%;
+  margin: 10px 0;
 }
 
 .header .logo img {
@@ -67,6 +74,17 @@ body {
   color: var(--button-primary);
 }
 
+.main {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  padding-bottom: 60px; /* Solo el espacio necesario para el botón de feedback */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
 /* Calculator section styles */
 .calculator {
   display: flex;
@@ -84,6 +102,8 @@ body {
   flex-direction: column;
   align-items: center;
   width: 100%;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
 }
 
 /* Input styles */
@@ -302,33 +322,62 @@ h3 {
 
 /* Media queries para dispositivos móviles */
 @media screen and (max-width: 768px) {
-  .feedback-section {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    width: 100%;
+  .main {
+    min-height: 100vh;
     margin: 0;
-    border-radius: 10px 10px 0 0;
+    padding: 0;
+    padding-bottom: 60px;
   }
 
   .donate-button {
-    position: fixed;
-    bottom: 30px;
-    right: 0;
-    left: 0;
+    position: static !important;
+    bottom: auto !important;
+    right: auto !important;
     width: 100%;
-    margin: 0 auto;
+    margin: 20px auto 0 auto;
+    display: flex;
     justify-content: center;
+  }
+
+  .feedback-section {
+    position: fixed !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    left: 0 !important;
+    width: 100%;
+    margin: 0;
+    z-index: 1000;
   }
 
   .feedback-content {
     max-height: 80vh;
     overflow-y: auto;
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background-color: var(--secondary-bg);
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
   }
 
   .feedback-toggle {
-    border-radius: 10px 10px 0 0;
+    border-radius: 0;
+    margin: 0;
+  }
+
+  .button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+    width: 280px;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0 auto;
+    position: sticky;
+    bottom: 0;
   }
 }
 
@@ -387,3 +436,12 @@ h3 {
 .donate-button i {
   font-size: 1.2em;
 }
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 1000;
+}
+
+
