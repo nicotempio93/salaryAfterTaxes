@@ -88,9 +88,6 @@
             <h2 id="result-display"></h2>
           </div>
         </form>
-      </section>
-      <div class="button-container">
-        <!-- Botón de Donación -->
         <a
           href="https://www.paypal.com/donate/?business=9ZHB8ZZ67YX2G&no_recurring=1&item_name=Tirame+unos+pesos+si+esta+pagina+te+sirvio+alguna+vez%21&currency_code=DKK"
           target="_blank"
@@ -99,10 +96,13 @@
           <i class="fab fa-paypal"></i>
           Donar
         </a>
+      </section>
+      <div class="button-container">
+        <!-- Botón de Donación -->
 
         <!-- Formulario de Feedback -->
         <section class="feedback-section">
-          <button class="feedback-toggle">
+          <button class="feedback-toggle" id="feedback-toggle">
             <i class="fas fa-comments"></i>
             Feedback
           </button>
@@ -129,9 +129,9 @@
     </main>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-    <script src="script.js"></script>
-    <script src="config.js" type="module"></script>
-    <script src="feedback.js" type="module"></script>
-    <script src="currency.js"></script>
+    <script src="/script.js"></script>
+    <script type="module" src="/config.js"></script>
+    <script type="module" src="/feedback.js"></script>
+    <script src="/currency.js"></script>
   </body>
 </html>

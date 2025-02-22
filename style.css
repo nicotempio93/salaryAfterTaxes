@@ -259,9 +259,10 @@ h3 {
 
 .feedback-content {
   padding: 15px;
-  display: none;
-  background-color: #1a232b;
+  background-color: var(--secondary-bg);
   border-radius: 0 0 10px 10px;
+  z-index: 1000;
+  display: none;
 }
 
 .feedback-section.active .feedback-content {
@@ -326,37 +327,33 @@ h3 {
     min-height: 100vh;
     margin: 0;
     padding: 0;
-    padding-bottom: 60px;
+    display: flex;
+    flex-direction: column;
   }
 
   .donate-button {
     position: static !important;
-    bottom: auto !important;
-    right: auto !important;
     width: 100%;
-    margin: 20px auto 0 auto;
+    margin: 20px auto;
     display: flex;
     justify-content: center;
   }
 
   .feedback-section {
-    position: fixed !important;
-    bottom: 0 !important;
-    right: 0 !important;
-    left: 0 !important;
+    position: static !important; /* Cambiado de fixed a static */
     width: 100%;
     margin: 0;
-    z-index: 1000;
+    margin-top: auto; /* Esto empujará la sección al final del contenedor flex */
   }
 
   .feedback-content {
-    max-height: 80vh;
-    overflow-y: auto;
-    position: absolute;
-    bottom: 100%;
+    position: fixed; /* Cambiado de absolute a fixed */
+    bottom: 60px; /* Ajustado para que aparezca encima del botón */
     left: 0;
     right: 0;
     width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
     background-color: var(--secondary-bg);
     border-radius: 10px 10px 0 0;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
@@ -365,19 +362,7 @@ h3 {
   .feedback-toggle {
     border-radius: 0;
     margin: 0;
-  }
-
-  .button-container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    z-index: 1000;
-    width: 280px;
-    justify-content: space-around;
-    align-items: center;
-    margin: 0 auto;
-    position: sticky;
-    bottom: 0;
+    width: 100%;
   }
 }
 

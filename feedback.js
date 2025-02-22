@@ -1,9 +1,15 @@
 import { db } from './config.js';
 import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-document.addEventListener('DOMContentLoaded', () => {
+
+document.addEventListener('DOMContentLoaded', function() {
+
+
     const feedbackForm = document.getElementById('feedback-form');
     const feedbackText = document.getElementById('feedback');
+    const feedbackToggle = document.getElementById('feedback-toggle');
+    const feedbackContent = document.querySelector('.feedback-content');
+    const feedbackSection = document.querySelector('.feedback-section');
 
     // Agregar contador de caracteres
     feedbackText.addEventListener('input', () => {
@@ -52,17 +58,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    const feedbackToggle = document.querySelector('.feedback-toggle');
-    const feedbackSection = document.querySelector('.feedback-section');
 
-    feedbackToggle.addEventListener('click', function() {
-        feedbackSection.classList.toggle('active');
-    });
+    if (feedbackToggle && feedbackSection) {
+        console.log('Elementos encontrados, agregando event listener');
+        
+        feedbackToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            feedbackSection.classList.toggle('active');
+        });
 
-    // Cerrar el feedback cuando se hace clic fuera
-    document.addEventListener('click', function(event) {
-        if (!feedbackSection.contains(event.target)) {
-            feedbackSection.classList.remove('active');
-        }
-    });
-}); 
+        // Cerrar al hacer clic fuera
+        document.addEventListener('click', function(e) {
+            if (feedbackSection.classList.contains('active') && 
+                !feedbackContent.contains(e.target) && 
+                !feedbackToggle.contains(e.target)) {
+                feedbackSection.classList.remove('active');
+            }
+        });
+    } else {
+        console.log('No se encontraron los elementos necesarios');
+    }
+});
