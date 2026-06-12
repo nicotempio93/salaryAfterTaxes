@@ -8,10 +8,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap"
       rel="stylesheet"
     />
-    <script src="/lenguaje.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -22,8 +25,18 @@
         </div>
         <nav>
           <ul class="nav-links">
-            <li><a href="index.html" class="active">Salary Calculator</a></li>
-            <li><a href="currency.html">Currency Converter</a></li>
+            <li>
+              <a href="index.html" class="active">
+                <i class="fas fa-calculator"></i>
+                Salary Calculator
+              </a>
+            </li>
+            <li>
+              <a href="currency.html">
+                <i class="fas fa-exchange-alt"></i>
+                Currency Converter
+              </a>
+            </li>
           </ul>
         </nav>
       </header>
@@ -76,9 +89,50 @@
             <h2 id="result-display"></h2>
           </div>
         </form>
+        <a
+          href="https://www.paypal.com/donate/?business=9ZHB8ZZ67YX2G&no_recurring=1&item_name=Tirame+unos+pesos+si+esta+pagina+te+sirvio+alguna+vez%21&currency_code=DKK"
+          target="_blank"
+          class="donate-button"
+        >
+          <i class="fab fa-paypal"></i>
+          Donar
+        </a>
       </section>
 
+      <div class="button-container">
+        <!-- Botón de Donación -->
+
+        <!-- Formulario de Feedback -->
+        <section class="feedback-section">
+          <button class="feedback-toggle" id="feedback-toggle">
+            <i class="fas fa-comments"></i>
+            Feedback
+          </button>
+          <div class="feedback-content">
+            <h2>¿Cómo podemos mejorar?</h2>
+            <form id="feedback-form" class="feedback-form">
+              <div class="input-group">
+                <label for="feedback">Tu opinión es importante:</label>
+                <textarea
+                  id="feedback"
+                  name="feedback"
+                  rows="4"
+                  maxlength="500"
+                  placeholder="Comparte tus sugerencias..."
+                ></textarea>
+              </div>
+              <button type="submit" class="feedback-btn">
+                Enviar Feedback
+              </button>
+            </form>
+          </div>
+        </section>
+      </div>
     </main>
-    <script src="script.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="/script.js"></script>
+    <script type="module" src="/config.js"></script>
+    <script type="module" src="/feedback.js"></script>
   </body>
 </html>
