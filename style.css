@@ -243,6 +243,23 @@ textarea:focus {
   margin-left: 6px;
 }
 
+.site-credit {
+  width: min(980px, 92%);
+  margin: 18px auto 0;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.author-link {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.author-link:hover {
+  color: var(--accent);
+}
+
 .site-footer {
   width: min(980px, 92%);
   margin: 28px auto 40px;
