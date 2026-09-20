@@ -1,150 +1,301 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const currencyForm = document.getElementById('currency-form');
-    const inputs = {
-        dkk: document.getElementById('dkk'),
-        usd: document.getElementById('usd'),
-        ars: document.getElementById('ars')
-    };
+  const form = document.getElementById('currency-form');
+  if (!form) return;
 
-    // Limpiar otros inputs cuando se escribe en uno
-    Object.keys(inputs).forEach(currency => {
-        inputs[currency].addEventListener('input', () => {
-            Object.keys(inputs).forEach(otherCurrency => {
-                if (otherCurrency !== currency && inputs[currency].value) {
-                    inputs[otherCurrency].value = '';
-                }
-            });
-        });
+  const inputs = {
+    DKK: document.getElementById('dkk'),
+    USD: document.getElementById('usd'),
+    ARS: document.getElementById('ars'),
+  };
+  const resultDisplay = document.getElementById('result-display');
+  const errorDisplay = document.getElementById('currency-error');
+  const rateMeta = document.getElementById('rate-meta');
+
+  let rates = null;
+  let isInternalUpdate = false;
+  let debounceId;
+
+  form.addEventListener('submit', (event) => event.preventDefault());
+
+  Object.entries(inputs).forEach(([currency, input]) => {
+    input.addEventListener('input', () => {
+      if (isInternalUpdate) return;
+
+      clearTimeout(debounceId);
+      debounceId = setTimeout(() => {
+        convertFromInput(currency, input.value);
+      }, 220);
     });
+  });
 
-    currencyForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        convertCurrency();
+  loadRates().then((loadedRates) => {
+    rates = loadedRates;
+    renderRateMeta(rates);
+  }).catch(() => {
+    showError('No se pudieron cargar las tasas en este momento.');
+  });
+
+  async function convertFromInput(sourceCurrency, rawValue) {
+    clearError();
+
+    const hasAnyValue = Object.values(inputs).some((input) => input.value.trim() !== '');
+    if (!hasAnyValue) {
+      resultDisplay.textContent = 'Ingresá un monto para convertir.';
+      return;
+    }
+
+    const amount = parseLocalizedNumber(rawValue);
+    if (amount === null) {
+      return;
+    }
+
+    if (!Number.isFinite(amount) || amount < 0) {
+      showError('Ingresá un monto válido mayor o igual a 0.');
+      return;
+    }
+
+    if (!rates) {
+      try {
+        rates = await loadRates();
+        renderRateMeta(rates);
+      } catch {
+        showError('No se pudieron actualizar las tasas de cambio.');
+        return;
+      }
+    }
+
+    const converted = convertAmount(amount, sourceCurrency, rates);
+
+    isInternalUpdate = true;
+    Object.entries(inputs).forEach(([currency, input]) => {
+      if (currency === sourceCurrency) return;
+      input.value = formatEditableNumber(converted[currency]);
     });
-});
+    isInternalUpdate = false;
 
-// Función para obtener tasas de cambio de la API de Frankfurter
-async function fetchExchangeRates() {
-    const url = 'https://api.frankfurter.app/latest?symbols=USD,DKK'; // Solicitar USD y DKK desde EUR
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
+    resultDisplay.textContent = `${formatCurrency(amount, sourceCurrency)} equivalen a ${formatCurrency(
+      converted.DKK,
+      'DKK'
+    )}, ${formatCurrency(converted.USD, 'USD')} y ${formatCurrency(converted.ARS, 'ARS')}.`;
+  }
 
-        // Devolver las tasas de cambio de EUR a USD y EUR a DKK
-        return {
-            USD: data.rates.USD,  // Tasa de EUR a USD
-            DKK: data.rates.DKK   // Tasa de EUR a DKK
-        };
-    } catch (error) {
-        console.error('Error fetching exchange rates:', error);
-        return null;  // Devolver null si hay un error
-    }
-}
+  function convertAmount(amount, sourceCurrency, loadedRates) {
+    const usdToDkk = loadedRates.dkkPerEur / loadedRates.usdPerEur;
+    const dkkToUsd = loadedRates.usdPerEur / loadedRates.dkkPerEur;
+    const usdToArs = loadedRates.arsPerUsd;
 
-// Función para obtener la cotización de USD a ARS desde DolarApi
-async function fetchArsExchangeRate() {
-    const url = 'https://dolarapi.com/v1/dolares/blue';  // URL de la API
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-
-        // Acceder al valor de venta de USD a ARS
-        return data.venta;  // Aquí accedemos al valor "venta"
-    } catch (error) {
-        console.error('Error fetching ARS exchange rate:', error);
-        return null;  // Devolver null si hay un error
-    }
-}
-
-async function convertCurrency() {
-    const dkkInput = document.getElementById('dkk').value;
-    const usdInput = document.getElementById('usd').value;
-    const arsInput = document.getElementById('ars').value;
-
-    let amount, sourceCurrency;
-    
-    // Determinar qué input se llenó
-    if (dkkInput) {
-        amount = parseFloat(dkkInput.replace(/\./g, ''));
-        sourceCurrency = 'DKK';
-    } else if (usdInput) {
-        amount = parseFloat(usdInput.replace(/\./g, ''));
-        sourceCurrency = 'USD';
-    } else if (arsInput) {
-        amount = parseFloat(arsInput.replace(/\./g, ''));
-        sourceCurrency = 'ARS';
-    } else {
-        displayResult('Please enter an amount in one of the fields');
-        return;
-    }
-
-    if (isNaN(amount)) {
-        displayResult('Please enter a valid number');
-        return;
-    }
-
-    // Obtener tasas de cambio de la API
-    const exchangeRates = await fetchExchangeRates();
-    const arsRate = await fetchArsExchangeRate();
-
-    if (!exchangeRates || arsRate === null) {
-        displayResult('Error fetching exchange rates');
-        return;
-    }
-
-    let conversions = {};
-
-    // Conversiones dependiendo de la moneda base
     if (sourceCurrency === 'DKK') {
-        conversions = {
-            DKK: amount.toFixed(2),
-            USD: (amount / exchangeRates.DKK * exchangeRates.USD).toFixed(2),
-            ARS: (amount / exchangeRates.DKK * arsRate).toFixed(2)  // Usar tasa "venta" para ARS
-        };
-    } else if (sourceCurrency === 'USD') {
-        conversions = {
-            DKK: (amount * exchangeRates.DKK / exchangeRates.USD).toFixed(2),
-            USD: amount.toFixed(2),
-            ARS: (amount * arsRate).toFixed(2)  // Usar tasa "venta" para ARS
-        };
-    } else if (sourceCurrency === 'ARS') {
-        conversions = {
-            DKK: (amount * exchangeRates.DKK / arsRate).toFixed(2),  // Usar tasa "venta" para ARS
-            USD: (amount / arsRate * exchangeRates.USD).toFixed(2),  // Usar tasa "venta" para ARS
-            ARS: amount.toFixed(2)
-        };
+      const usd = amount * dkkToUsd;
+      return {
+        DKK: amount,
+        USD: usd,
+        ARS: usd * usdToArs,
+      };
     }
 
-    // Formatear los resultados con separadores de miles
-    const formattedConversions = {
-        DKK: formatNumber(conversions.DKK),
-        USD: formatNumber(conversions.USD),
-        ARS: formatNumber(conversions.ARS)
+    if (sourceCurrency === 'USD') {
+      return {
+        DKK: amount * usdToDkk,
+        USD: amount,
+        ARS: amount * usdToArs,
+      };
+    }
+
+    const usd = amount / usdToArs;
+    return {
+      DKK: usd * usdToDkk,
+      USD: usd,
+      ARS: amount,
     };
+  }
 
-    // Mostrar resultados sin repetir la moneda de entrada
-    let resultMessage = `<div><strong>${amount} ${sourceCurrency} =</strong></div>`;
-    
-    // Mostrar solo las conversiones que no corresponden a la moneda de entrada
-    if (sourceCurrency !== 'DKK') {
-        resultMessage += `<div>${formattedConversions.DKK} DKK</div>`;
+  async function loadRates() {
+    const cacheKey = 'salary_app_rates_v2';
+    const tenMinutes = 10 * 60 * 1000;
+    const cachedRaw = localStorage.getItem(cacheKey);
+    const staleCache = parseCache(cachedRaw);
+
+    if (staleCache) {
+      const cached = staleCache;
+      if (Date.now() - cached.fetchedAt < tenMinutes) {
+        return cached;
+      }
     }
-    if (sourceCurrency !== 'USD') {
-        resultMessage += `<div>${formattedConversions.USD} USD</div>`;
+
+    try {
+      const [fxResponse, arsResponse] = await Promise.all([
+        fetchJsonWithFallback([
+          {
+            url: 'https://api.frankfurter.app/latest?from=EUR&to=USD,DKK',
+            source: 'Frankfurter',
+          },
+          {
+            url: 'https://latest.currency-api.pages.dev/v1/currencies/eur.json',
+            source: 'Currency API',
+          },
+        ]),
+        fetchJsonWithFallback([
+          {
+            url: 'https://dolarapi.com/v1/dolares/blue',
+            source: 'DolarAPI',
+          },
+          {
+            url: 'https://api.bluelytics.com.ar/v2/latest',
+            source: 'Bluelytics',
+          },
+        ]),
+      ]);
+
+      const frankfurterData = fxResponse.data;
+      const dolarData = arsResponse.data;
+
+      const payload = {
+        usdPerEur: frankfurterData?.rates?.USD ?? frankfurterData?.eur?.usd,
+        dkkPerEur: frankfurterData?.rates?.DKK ?? frankfurterData?.eur?.dkk,
+        arsPerUsd: dolarData?.venta ?? dolarData?.blue?.value_sell,
+        fetchedAt: Date.now(),
+        sources: {
+          fxSource: fxResponse.source,
+          arsSource: arsResponse.source,
+          frankfurterDate: frankfurterData?.date ?? null,
+          dolarDate: dolarData?.fechaActualizacion ?? dolarData?.last_update ?? null,
+        },
+      };
+
+      if (!payload.usdPerEur || !payload.dkkPerEur || !payload.arsPerUsd) {
+        throw new Error('Datos incompletos de tasas');
+      }
+
+      localStorage.setItem(cacheKey, JSON.stringify(payload));
+      return payload;
+    } catch (error) {
+      if (staleCache) {
+        return staleCache;
+      }
+      throw error;
     }
-    if (sourceCurrency !== 'ARS') {
-        resultMessage += `<div>${formattedConversions.ARS} ARS</div>`;
+  }
+
+  async function fetchJsonWithFallback(urls) {
+    let lastError = null;
+
+    for (const { url, source } of urls) {
+      try {
+        const response = await fetchWithTimeout(url, 6000);
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+        return {
+          data: await response.json(),
+          source,
+        };
+      } catch (error) {
+        lastError = error;
+      }
     }
 
-    displayResult(resultMessage);
-}
+    throw lastError ?? new Error('No se pudo consultar ninguna API');
+  }
 
-// Función para formatear números con separadores de miles (SOLO EN LOS RESULTADOS)
-function formatNumber(number) {
-    return parseFloat(number).toLocaleString('es-AR');  // 'es-AR' para usar el formato de Argentina (puedes cambiarlo a otro idioma o región)
-}
+  async function fetchWithTimeout(url, timeoutMs) {
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), timeoutMs);
 
-function displayResult(message) {
-    const resultDisplay = document.getElementById('result-display');
-    resultDisplay.innerHTML = message.replace(/\n/g, '<br>');
-}
+    try {
+      return await fetch(url, { signal: controller.signal });
+    } finally {
+      window.clearTimeout(timeoutId);
+    }
+  }
+
+  function renderRateMeta(loadedRates) {
+    const localFetchTime = new Date(loadedRates.fetchedAt);
+    const frankfurterDate = loadedRates.sources.frankfurterDate
+      ? new Date(loadedRates.sources.frankfurterDate)
+      : null;
+    const dolarDate = loadedRates.sources.dolarDate
+      ? new Date(loadedRates.sources.dolarDate)
+      : null;
+
+    const lines = [
+      `Última actualización local: ${formatDateTime(localFetchTime)}.`,
+      `Fuente DKK/USD: ${loadedRates.sources.fxSource ?? 'Frankfurter'}${frankfurterDate ? ` (${formatDate(frankfurterDate)})` : ''}.`,
+      `Fuente ARS/USD: ${loadedRates.sources.arsSource ?? 'DolarAPI'}${dolarDate ? ` (${formatDateTime(dolarDate)})` : ''}.`,
+    ];
+
+    rateMeta.innerHTML = lines.map((line) => `<div>${line}</div>`).join('');
+  }
+
+  function parseLocalizedNumber(value) {
+    const sanitized = value.trim().replace(/\s+/g, '').replace(/[^\d.,-]/g, '');
+    if (!sanitized) return null;
+
+    const lastComma = sanitized.lastIndexOf(',');
+    const lastDot = sanitized.lastIndexOf('.');
+    const decimalSeparator = lastComma > lastDot ? ',' : '.';
+
+    let normalized = sanitized;
+
+    if (decimalSeparator === ',') {
+      normalized = normalized.replace(/\./g, '').replace(',', '.');
+    } else {
+      normalized = normalized.replace(/,/g, '');
+    }
+
+    return Number(normalized);
+  }
+
+  function parseCache(value) {
+    if (!value) {
+      return null;
+    }
+
+    try {
+      return JSON.parse(value);
+    } catch {
+      return null;
+    }
+  }
+
+  function formatEditableNumber(number) {
+    return new Intl.NumberFormat('es-AR', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(number);
+  }
+
+  function formatCurrency(amount, currency) {
+    return new Intl.NumberFormat('es-AR', {
+      style: 'currency',
+      currency,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(amount);
+  }
+
+  function showError(message) {
+    errorDisplay.textContent = message;
+  }
+
+  function clearError() {
+    errorDisplay.textContent = '';
+  }
+
+  function formatDate(date) {
+    return new Intl.DateTimeFormat('es-AR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    }).format(date);
+  }
+
+  function formatDateTime(date) {
+    return new Intl.DateTimeFormat('es-AR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    }).format(date);
+  }
+});

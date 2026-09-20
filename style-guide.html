@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guía de Estilos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main>
+      <header class="header">
+        <div class="logo">
+          <img src="./s-Photoroom.png" alt="logo" class="flag-icon" />
+        </div>
+        <nav>
+          <ul class="nav-links">
+            <li>
+              <a href="index.html">
+                <i class="fas fa-calculator"></i>
+                Calculadora de Sueldo
+              </a>
+            </li>
+            <li>
+              <a href="currency.html">
+                <i class="fas fa-exchange-alt"></i>
+                Conversor de Monedas
+              </a>
+            </li>
+            <li>
+              <a href="style-guide.html" class="active">
+                <i class="fas fa-swatchbook"></i>
+                Guía de Estilos
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </header>
+
+      <section class="calculator style-guide">
+        <h1>Guía de Estilos</h1>
+        <p class="section-subtitle">
+          Referencia visual y de contenido para mantener la app consistente.
+        </p>
+
+        <section class="guide-section">
+          <h2>Identidad</h2>
+          <div class="guide-grid">
+            <article class="breakdown-item">
+              <p class="breakdown-label">Tono</p>
+              <p class="breakdown-value">Claro, directo y útil para usuarios hispanohablantes.</p>
+            </article>
+            <article class="breakdown-item">
+              <p class="breakdown-label">Personalidad</p>
+              <p class="breakdown-value">Herramienta práctica, simple de usar y orientada a resultados.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="guide-section">
+          <h2>Paleta</h2>
+          <div class="palette-grid">
+            <article class="color-card">
+              <span class="color-swatch color-bg"></span>
+              <strong>Fondo</strong>
+              <p>#0f1720</p>
+            </article>
+            <article class="color-card">
+              <span class="color-swatch color-surface"></span>
+              <strong>Superficie</strong>
+              <p>#1d2a37</p>
+            </article>
+            <article class="color-card">
+              <span class="color-swatch color-accent"></span>
+              <strong>Acento</strong>
+              <p>#2a9d8f</p>
+            </article>
+            <article class="color-card">
+              <span class="color-swatch color-warn"></span>
+              <strong>Error</strong>
+              <p>#ef476f</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="guide-section">
+          <h2>Tipografía y UI</h2>
+          <div class="guide-grid">
+            <article class="breakdown-item">
+              <p class="breakdown-label">Fuente</p>
+              <p class="breakdown-value">Montserrat para títulos, navegación y controles.</p>
+            </article>
+            <article class="breakdown-item">
+              <p class="breakdown-label">Botones</p>
+              <p class="breakdown-value">Bordes redondeados, alto contraste y microinteracción al hover.</p>
+            </article>
+            <article class="breakdown-item">
+              <p class="breakdown-label">Tarjetas</p>
+              <p class="breakdown-value">Fondo oscuro, borde sutil y separación clara por bloques.</p>
+            </article>
+            <article class="breakdown-item">
+              <p class="breakdown-label">Inputs</p>
+              <p class="breakdown-value">Estados de foco visibles y placeholders orientados a ejemplo.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="guide-section author-card">
+          <h2>Autoría</h2>
+          <p>Hecho por vos. Podés personalizar estos datos con tus contactos reales.</p>
+          <div class="author-links">
+            <a href="https://instagram.com/tuinstagram" target="_blank" rel="noreferrer">
+              Instagram
+            </a>
+            <a href="mailto:tuemail@ejemplo.com">tuemail@ejemplo.com</a>
+          </div>
+        </section>
+      </section>
+
+      <footer class="site-footer">
+        <p>Hecho por vos.</p>
+        <div class="author-links">
+          <a href="https://instagram.com/tuinstagram" target="_blank" rel="noreferrer">
+            Instagram
+          </a>
+          <a href="mailto:tuemail@ejemplo.com">tuemail@ejemplo.com</a>
+        </div>
+      </footer>
+    </main>
+  </body>
+</html>

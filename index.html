@@ -1,10 +1,9 @@
-<!-- Salary Calculator (Refactorized) -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Salary Calculator</title>
+    <title>Calculadora de Sueldo</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -21,20 +20,26 @@
     <main>
       <header class="header">
         <div class="logo">
-          <img src="/s-Photoroom.png" alt="logo" class="flag-icon" />
+          <img src="./s-Photoroom.png" alt="logo" class="flag-icon" />
         </div>
         <nav>
           <ul class="nav-links">
             <li>
               <a href="index.html" class="active">
                 <i class="fas fa-calculator"></i>
-                Salary Calculator
+                Calculadora de Sueldo
               </a>
             </li>
             <li>
               <a href="currency.html">
                 <i class="fas fa-exchange-alt"></i>
-                Currency Converter
+                Conversor de Monedas
+              </a>
+            </li>
+            <li>
+              <a href="style-guide.html">
+                <i class="fas fa-swatchbook"></i>
+                Guía de Estilos
               </a>
             </li>
           </ul>
@@ -42,30 +47,77 @@
       </header>
 
       <section class="calculator">
-        <h1>Salary After Taxes</h1>
+        <h1>Sueldo Neto Estimado</h1>
+        <p class="section-subtitle">
+          Estimá cuánto te queda en cuenta según horas, tarifa y tipo de impuesto.
+        </p>
         <form id="salary-form" class="calculator-form">
           <div class="input-group">
             <label for="hoursWorked">
-              <h3>Hours Worked</h3>
+              <h3>Horas normales trabajadas</h3>
               <input
                 type="number"
                 id="hoursWorked"
-                placeholder="E.g., 140"
+                placeholder="Ej: 140"
                 required
                 min="0"
+                step="0.5"
               />
             </label>
           </div>
 
           <div class="input-group">
             <label for="hourlyWage">
-              <h3>Hourly Wage</h3>
+              <h3>Pago por hora (DKK)</h3>
               <input
                 type="number"
                 id="hourlyWage"
-                placeholder="E.g., 130"
+                placeholder="Ej: 130"
                 required
                 min="0"
+                step="0.01"
+              />
+            </label>
+          </div>
+
+          <div class="input-group">
+            <label for="extraHours">
+              <h3>Horas extra</h3>
+              <input
+                type="number"
+                id="extraHours"
+                placeholder="Ej: 10"
+                min="0"
+                step="0.5"
+                value="0"
+              />
+            </label>
+          </div>
+
+          <div class="input-group">
+            <label for="extraMultiplier">
+              <h3>Multiplicador horas extra</h3>
+              <input
+                type="number"
+                id="extraMultiplier"
+                placeholder="Ej: 1.5"
+                min="1"
+                step="0.1"
+                value="1.5"
+              />
+            </label>
+          </div>
+
+          <div class="input-group">
+            <label for="fradrag">
+              <h3>Fradrag mensual (DKK)</h3>
+              <input
+                type="number"
+                id="fradrag"
+                placeholder="Ej: 4800"
+                min="0"
+                step="1"
+                value="0"
               />
             </label>
           </div>
@@ -73,20 +125,27 @@
           <div class="tax-options">
             <label class="radio-label">
               <input type="radio" name="taxType" value="0.64" checked />
-              Primary
+              Tarjeta principal
             </label>
             <label class="radio-label">
               <input type="radio" name="taxType" value="0.45" />
-              Secondary
+              Tarjeta secundaria
             </label>
           </div>
 
           <button type="submit" class="calculate-btn">
-            Calculate Net Salary
+            Calcular Sueldo Neto
           </button>
 
-          <div class="result">
-            <h2 id="result-display"></h2>
+          <p id="salary-error" class="inline-error" aria-live="polite"></p>
+
+          <div class="result-card" id="salary-result-card" aria-live="polite">
+            <h2 id="result-display">Completá los campos para calcular.</h2>
+            <div class="breakdown-grid" id="salary-breakdown"></div>
+            <p class="result-note">
+              Estimación orientativa para uso personal. Puede variar respecto al
+              recibo real.
+            </p>
           </div>
         </form>
         <a
@@ -128,11 +187,21 @@
           </div>
         </section>
       </div>
+
+      <footer class="site-footer">
+        <p>Hecho por vos.</p>
+        <div class="author-links">
+          <a href="https://instagram.com/tuinstagram" target="_blank" rel="noreferrer">
+            Instagram
+          </a>
+          <a href="mailto:tuemail@ejemplo.com">tuemail@ejemplo.com</a>
+        </div>
+      </footer>
     </main>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-    <script src="/script.js"></script>
-    <script type="module" src="/config.js"></script>
-    <script type="module" src="/feedback.js"></script>
+    <script src="./script.js"></script>
+    <script type="module" src="./config.js"></script>
+    <script type="module" src="./feedback.js"></script>
   </body>
 </html>

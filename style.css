@@ -1,13 +1,15 @@
-/* Base styles */
 :root {
-  --primary-bg: rgb(26, 26, 30);
-  --secondary-bg: #1a232b;
-  --header-bg: #131721;
-  --text-color: #e9f9e9;
-  --muted-text: #babeba;
-  --button-primary: #ef8a05;
-  --button-hover: #768b1b;
-  --border-color: #131721;
+  --bg: #0f1720;
+  --bg-soft: #17212c;
+  --surface: #1d2a37;
+  --surface-2: #223445;
+  --text: #ecf3fb;
+  --muted: #9eb1c4;
+  --accent: #2a9d8f;
+  --accent-hover: #23867a;
+  --warn: #ef476f;
+  --border: rgba(255, 255, 255, 0.1);
+  --radius: 14px;
 }
 
 * {
@@ -16,417 +18,426 @@
   font-family: 'Montserrat', sans-serif;
 }
 
-html, body {
+html,
+body {
   min-height: 100vh;
-  margin: 0;
-  padding: 0;
 }
 
 body {
-  background-color: var(--primary-bg);
-  height: 100%;
+  background: radial-gradient(circle at top right, #223445, #0f1720 45%);
+  color: var(--text);
 }
 
-/* Header styles */
+main {
+  min-height: 100vh;
+  padding-bottom: 110px;
+}
+
 .header {
-  height: 40px;
-  width: 100%;
+  width: min(980px, 92%);
+  margin: 16px auto;
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  background-color: rgba(20, 30, 40, 0.9);
+  border: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--header-bg);
-  color: var(--text-color);
-  padding: 5px 10%;
-  margin: 10px 0;
 }
 
 .header .logo img {
-  height: 90px;
+  height: 48px;
   width: auto;
 }
 
 .nav-links {
   display: flex;
-  gap: 20px;
-  padding: 0;
-}
-
-.nav-links li {
+  gap: 12px;
   list-style: none;
+  padding: 0;
 }
 
 .nav-links a {
-  color: var(--text-color);
+  color: var(--text);
   text-decoration: none;
+  font-size: 0.92rem;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
-#lang-toggle {
-  border: 1px solid #999999;
-  border-radius: 100%;
-  background-color: transparent;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  cursor: pointer;
+.nav-links a:hover {
+  border-color: var(--border);
 }
 
 .nav-links a.active {
-  color: var(--button-primary);
+  background-color: rgba(42, 157, 143, 0.16);
+  border-color: rgba(42, 157, 143, 0.5);
 }
 
-.main {
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
-  padding-bottom: 60px; /* Solo el espacio necesario para el botón de feedback */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-/* Calculator section styles */
 .calculator {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  width: min(620px, 92%);
+  margin: 40px auto 0;
+  border-radius: var(--radius);
+  background-color: rgba(22, 35, 47, 0.9);
+  border: 1px solid var(--border);
+  padding: 28px 22px;
+}
+
+h1 {
+  font-size: 1.9rem;
   text-align: center;
-  margin: 80px auto 0;
-  border-radius: 10px;
-  background: var(--secondary-bg);
-  padding: 20px;
+  margin-bottom: 10px;
+}
+
+.section-subtitle {
+  color: var(--muted);
+  text-align: center;
+  font-size: 0.95rem;
+  margin-bottom: 24px;
 }
 
 .calculator-form {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 100%;
-  padding-bottom: 0px;
-  margin-bottom: 0px;
+  gap: 14px;
 }
 
-/* Input styles */
 .input-group {
   width: 100%;
-  max-width: 300px;
-  text-align: center;
-}
-
-input, select {
-  width: 100%;
-  border-radius: 3px;
-  border: 3px solid var(--border-color);
-  padding: 8px;
-  background-color: var(--secondary-bg);
-  color: var(--text-color);
-}
-
-/* Typography */
-h1 {
-  font-size: 34px;
-  color: var(--text-color);
-  margin-bottom: 24px;
-}
-
-
-h2 {
-  font-size: 24px;
-  color: var(--text-color);
-  margin-bottom: 24px;
-  text-align: center;
 }
 
 h3 {
-  margin: 14px 0;
-  font-size: 24px;
-  color: var(--muted-text);
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+  color: var(--muted);
+  font-weight: 700;
 }
 
-/* Button styles */
-.calculate-btn,
-.convert-btn,
-.feedback-btn {
-  background-color: #007bff;
-  color: white;
-  padding: 0.8rem 1.5rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1rem;
+input,
+textarea {
   width: 100%;
-  max-width: 300px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  display: block;
-  margin: 1rem auto;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  padding: 12px;
+  background-color: var(--surface);
+  color: var(--text);
+  font-size: 1rem;
 }
 
-.calculate-btn:hover,
-.convert-btn:hover,
-.feedback-btn:hover {
-  background-color: #0056b3;
-  transform: translateY(-2px);
+input:focus,
+textarea:focus {
+  outline: 2px solid rgba(42, 157, 143, 0.5);
+  outline-offset: 1px;
 }
 
-.calculate-btn:active,
-.convert-btn:active,
-.feedback-btn:active {
-  transform: translateY(0);
-}
-
-/* Radio buttons */
-/* Modificar la sección de Radio buttons en tu CSS */
-.tax-options, .currency-options {
+.tax-options {
   display: flex;
-  gap: 20px;
-  margin: 16px 0;
-  align-items: center; /* Asegura alineación vertical */
-  flex-wrap: wrap; /* Permite que los elementos se envuelvan si es necesario */
+  gap: 14px;
+  flex-wrap: wrap;
 }
 
 .radio-label {
-  color: var(--text-color);
-  display: inline-flex; /* Cambiado a inline-flex */
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 10px;
+  display: inline-flex;
   align-items: center;
   gap: 8px;
+  color: var(--text);
+}
+
+.radio-label input[type='radio'] {
+  width: auto;
+}
+
+.calculate-btn,
+.feedback-btn,
+.feedback-toggle,
+.donate-button {
+  border: none;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 0.95rem;
   cursor: pointer;
-  position: relative; /* Añadido */
-  padding: 4px 0; /* Añadido padding vertical */
-  min-width: 90px; /* Asegura un ancho mínimo */
+  transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
-/* Estilo específico para los inputs de tipo radio */
-.radio-label input[type="radio"] {
-  width: auto; /* Sobrescribe el width: 100% anterior */
-  margin: 0; /* Reset de márgenes */
-  position: relative; /* Asegura posicionamiento correcto */
+.calculate-btn,
+.feedback-btn,
+.feedback-toggle {
+  width: 100%;
+  background-color: var(--accent);
+  color: #ffffff;
+  font-weight: 700;
 }
 
-/* Result display */
-.result {
-  margin-top: 20px;
-  color: var(--text-color);
+.calculate-btn:hover,
+.feedback-btn:hover,
+.feedback-toggle:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-1px);
 }
 
-/* Responsive design */
-@media (max-width: 600px) {
-  .calculator {
-    width: 280px;
-    min-width: 215px;
-  }
+.inline-error {
+  color: var(--warn);
+  min-height: 18px;
+  font-size: 0.9rem;
+  margin-top: -4px;
 }
 
-@media (min-width: 601px) {
-  .calculator {
-    width: 550px;
-    min-width: 215px;
-  }
+.result-card {
+  margin-top: 6px;
+  background-color: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+#result-display {
+  font-size: 1.2rem;
+  margin-bottom: 14px;
+}
+
+.breakdown-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.breakdown-item {
+  background-color: rgba(15, 23, 32, 0.45);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.breakdown-label {
+  color: var(--muted);
+  font-size: 0.8rem;
+  margin-bottom: 4px;
+}
+
+.breakdown-value {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.result-note {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.rate-meta {
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
 }
 
 .flag-icon {
-  font-size: 24px; /* Asegura que el emoji sea lo suficientemente grande */
-  margin-left: 10px; /* Espaciado entre el campo y el emoji */
-  vertical-align: middle; /* Alinea el emoji al medio */
+  font-size: 1.1rem;
+  margin-left: 6px;
+}
+
+.site-footer {
+  width: min(980px, 92%);
+  margin: 28px auto 40px;
+  padding: 18px 20px;
+  border-radius: var(--radius);
+  background-color: rgba(20, 30, 40, 0.78);
+  border: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  color: var(--muted);
+}
+
+.author-links {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.author-links a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.author-links a:hover {
+  color: var(--accent);
+}
+
+.style-guide {
+  width: min(880px, 92%);
+}
+
+.guide-section + .guide-section {
+  margin-top: 22px;
+}
+
+.guide-section h2 {
+  font-size: 1.15rem;
+  margin-bottom: 14px;
+}
+
+.guide-grid,
+.palette-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.color-card {
+  background-color: rgba(15, 23, 32, 0.45);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.color-card strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.color-card p {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.color-swatch {
+  display: block;
+  width: 100%;
+  height: 76px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.color-bg {
+  background: #0f1720;
+}
+
+.color-surface {
+  background: #1d2a37;
+}
+
+.color-accent {
+  background: #2a9d8f;
+}
+
+.color-warn {
+  background: #ef476f;
+}
+
+.author-card p {
+  color: var(--muted);
+  margin-bottom: 12px;
 }
 
 .feedback-section {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  width: 300px;
+  width: min(340px, 92%);
   z-index: 1000;
-}
-
-.feedback-toggle {
-  width: 100%;
-  padding: 14px 10px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  transition: background-color 0.3s ease;
-}
-
-.feedback-toggle:hover {
-  background-color: #003087;
 }
 
 .feedback-content {
-  padding: 15px;
-  background-color: var(--secondary-bg);
-  border-radius: 0 0 10px 10px;
-  z-index: 1000;
   display: none;
+  margin-top: 8px;
+  background-color: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
 }
 
 .feedback-section.active .feedback-content {
   display: block;
 }
 
-.feedback-section h2 {
-  color: var(--text-color);
-  margin-bottom: 1rem;
-}
-
 .feedback-form {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
-
-.feedback-form .input-group {
-  width: 100%;
-  max-width: 500px;
+  gap: 10px;
 }
 
 .feedback-form label {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 6px;
   display: block;
-  margin-bottom: 0.5rem;
-  color: var(--text-color);
-  text-align: center;
 }
 
 .feedback-form textarea {
-  width: 100%;
-  padding: 1rem;
-  border: 2px solid var(--border-color);
-  border-radius: 8px;
-  background-color: var(--primary-bg);
-  color: var(--text-color);
-  font-family: inherit;
+  min-height: 90px;
   resize: vertical;
-  min-height: 100px;
-  max-height: 300px;
 }
 
-.feedback-btn {
-  background-color: #007bff;
-  color: white;
-  padding: 0.8rem 1.5rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-family: 'Montserrat', sans-serif;
-  transition: background-color 0.3s ease;
-}
-
-.feedback-btn:hover {
-  background-color: #0056b3;
-}
-
-/* Media queries para dispositivos móviles */
-@media screen and (max-width: 768px) {
-  .main {
-    min-height: 100vh;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .donate-button {
-    position: static !important;
-    width: 100%;
-    margin: 20px auto;
-    display: flex;
-    justify-content: center;
-  }
-
-  .feedback-section {
-    position: static !important; /* Cambiado de fixed a static */
-    width: 100%;
-    margin: 0;
-    margin-top: auto; /* Esto empujará la sección al final del contenedor flex */
-  }
-
-  .feedback-content {
-    position: fixed; /* Cambiado de absolute a fixed */
-    bottom: 60px; /* Ajustado para que aparezca encima del botón */
-    left: 0;
-    right: 0;
-    width: 100%;
-    max-height: 80vh;
-    overflow-y: auto;
-    background-color: var(--secondary-bg);
-    border-radius: 10px 10px 0 0;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
-  }
-
-  .feedback-toggle {
-    border-radius: 0;
-    margin: 0;
-    width: 100%;
-  }
-}
-
-.currency-select {
-  background: none;
-  border: none;
-  font-size: 1.17em;
-  font-weight: bold;
-  color: var(--text-color);
-  cursor: pointer;
-  font-family: 'Montserrat', sans-serif;
-  padding: 5px 20px 5px 5px;
-  outline: none;
-  appearance: none;
-  text-align: center;
-  position: relative;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right 2px center;
-  background-size: 16px;
-}
-
-.currency-select option {
-  background-color: var(--primary-bg);
-  color: var(--text-color);
-  font-size: 1rem;
-  padding: 10px;
-}
-
-/* Efecto hover */
-.currency-select:hover {
-  opacity: 0.8;
-}
 .donate-button {
   position: fixed;
-  bottom: 90px;
   right: 20px;
-  background-color: #007bff;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 10px;
+  bottom: 92px;
+  background-color: #0070ba;
+  color: #ffffff;
   text-decoration: none;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-  z-index: 1000;
+  font-weight: 700;
 }
 
 .donate-button:hover {
-  background-color: #003087;
+  background-color: #005c99;
 }
 
-.donate-button i {
-  font-size: 1.2em;
+@media (max-width: 760px) {
+  main {
+    padding-bottom: 0;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .nav-links {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .nav-links a {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .calculator {
+    margin-top: 20px;
+    padding: 20px 16px;
+  }
+
+  .feedback-section,
+  .donate-button {
+    position: static;
+    width: min(620px, 92%);
+    margin: 12px auto 0;
+  }
+
+  .feedback-section {
+    margin-bottom: 18px;
+  }
+
+  .donate-button {
+    justify-content: center;
+  }
+
+  .site-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
-
-.button-container {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  z-index: 1000;
-}
-
-

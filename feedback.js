@@ -12,6 +12,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const feedbackSection = document.querySelector('.feedback-section');
 
     // Agregar contador de caracteres
+    if (!feedbackForm || !feedbackText) {
+        return;
+    }
+
     feedbackText.addEventListener('input', () => {
         const remaining = 500 - feedbackText.value.length;
         if (remaining < 0) {
@@ -39,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Crear objeto con el feedback y timestamp
             const feedbackData = {
                 mensaje: feedback,
-                fecha: new Date(),
+                fecha: serverTimestamp(),
                 pagina: window.location.pathname // Para saber de qué página viene el feedback
             };
 
